@@ -62,10 +62,25 @@ free_app_packages = [
 ]
 
 paid_app_packages = [
-    
+    'fitness.workouts.home.workoutspro',
+    'com.mojang.minecraftpe',
+    'com.acadoid.lecturenotes',
+    'com.piksoft.turboscan',
+    'kr.aboy.tools',
+    'org.fortheloss.sticknodespro',
+    'com.maxmpz.audioplayer.unlock',
+    'com.intelligentchange.fiveminutejournal',
+    'com.flyersoft.moonreaderp',
+    'com.advasoft.touchretouch',
+    'com.discipleskies.android.gpswaypointsnavigator',
+    'fr.cookbookpro',
+    'com.modelmakertools.simplemindpro',
+    'app.WTInfoTech.WorldAroundMe',
+    'com.nikitadev.stockspro'
     ]
 
-app_packages = free_app_packages
+# app_packages = free_app_packages
+app_packages = paid_app_packages
 
 # scrapping app info
 app_infos = []
@@ -106,6 +121,6 @@ for ap in tqdm(app_packages):
 
 # saving as csv
 app_reviews_df = pd.DataFrame(app_reviews)
-app_reviews_df.to_csv('../data/free_app_reviews.csv', index=None, header=True)
+app_reviews_df.to_csv('../data/paid_app_reviews.csv', index=None, header=True)
 # app_reviews_df.to_csv('../data/paid_app_reviews.csv', index=None, header=True)
 
