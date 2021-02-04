@@ -109,7 +109,7 @@ for ap in tqdm(app_packages):
         country='us',
         sort=sort_order,
         # count= 200 if score == 3 else 100,
-        count = 100,
+        count = 300,
         filter_score_with=score
       )
       for r in rvs:
@@ -121,6 +121,6 @@ for ap in tqdm(app_packages):
 
 # saving as csv
 app_reviews_df = pd.DataFrame(app_reviews)
-app_reviews_df.to_csv('../data/paid_app_reviews.csv', index=None, header=True)
-# app_reviews_df.to_csv('../data/paid_app_reviews.csv', index=None, header=True)
+app_reviews_df.to_csv('../data/b_paid_raw.csv', index=None, header=True)
+
 

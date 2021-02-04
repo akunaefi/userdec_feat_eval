@@ -17,21 +17,25 @@ import nltk
 from nltk import word_tokenize
 from util import text_cleaner
 
-df_free = pd.read_csv('../data/free_app_reviews.csv')
-df_paid = pd.read_csv('../data/paid_app_reviews.csv')
+# df_free = pd.read_csv('../data/a_free_raw.csv')
+df_paid = pd.read_csv('../data/b_paid_raw.csv')
 
-print('panjang review free= ', len(df_free))
+# print('panjang review free= ', len(df_free))
 print('panjang review paid= ', len(df_paid))
 
-df_free = df_free.filter(['appId','at','content','score','thumbsUpCount'])
-df_free = df_free.rename(columns={'at':'time','content':'review','score':'rating','thumbsUpCount':'helpful'})
-print(df_free.columns)
+# df_free = df_free.filter(['appId','at','content','score','thumbsUpCount'])
+# df_free = df_free.rename(columns={'at':'time','content':'review','score':'rating','thumbsUpCount':'helpful'})
+# print(df_free.columns)
+# null_index = df_free[df_free['review'] == ""].index
+# df_free.drop(null_index, inplace =True)
 df_paid = df_paid.filter(['appId','at','content','score','thumbsUpCount'])
 df_paid = df_paid.rename(columns={'at':'time','content':'review','score':'rating','thumbsUpCount':'helpful'})
 print(df_paid.columns)
+null_index = df_paid[df_paid['review'] == ""].index
+df_paid.drop(null_index, inplace =True)
 
-df_free.to_csv('../data/free_app_reviews_base.csv')
-df_paid.to_csv('../data/paid_app_reviews_base.csv')
+# df_free.to_csv('../data/a_free_base.csv')
+df_paid.to_csv('../data/b_paid_base.csv')
 
 
 # df_free = pd.read_csv('../data/free_app_reviews_base.csv')

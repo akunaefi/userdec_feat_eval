@@ -103,10 +103,12 @@ def apply_rule_1(infile, outfile, min_len):
     None.
 
     '''
-    idx_remove = []
+
     df = pd.read_csv(infile)
-    df.fillna(' ')
-    
+    null_index = df[df['review'] == ""].index
+    df.drop(null_index, inplace =True)
+
+    idx_remove = []    
     for index, review in enumerate(df['review']):
         print(index)
         cleaned_review = text_cleaner(review)
@@ -368,8 +370,7 @@ if __name__ == '__main__':
     
     request_words = ['please','add','feature','request','update',
                      'need','option','upgrade','renew','improve',
-                     'fix','enhance','repair','correct','new',
-                     'function','wish','complaint']
+                     'fix','enhance','repair','correct','wish']
     
     rating_words = ['rate','star','give','five star','four star','three star']
     
@@ -385,10 +386,11 @@ if __name__ == '__main__':
     # apply_rule_2('../data/free_app_reviews_after_rule1.csv','../data/free_app_reviews_after_rule2.csv')
     # df_annotated = apply_rule_3('../data/free_app_reviews_after_rule2.csv','../data/free_app_reviews_annotated.csv')
 
-    # paid app reviews dataset    
-    apply_rule_1('../data/paid_app_reviews_base.csv','../data/paid_app_reviews_after_rule1.csv',10)
-    apply_rule_2('../data/paid_app_reviews_after_rule1.csv','../data/paid_app_reviews_after_rule2.csv')
-    df_annotated = apply_rule_3('../data/paid_app_reviews_after_rule2.csv','../data/paid_app_reviews_annotated.csv')
+    # paid app reviews dataset
+   
+    apply_rule_1('../data/b_paid_base.csv','../data/b_paid_after_rule1.csv',10)
+    apply_rule_2('../data/b_paid_after_rule1.csv','../data/b_paid_after_rule2.csv')
+    df_annotated = apply_rule_3('../data/b_paid_after_rule2.csv','../data/b_paid_annotated.csv')
     
        
     # # cek each label distribution
@@ -399,8 +401,8 @@ if __name__ == '__main__':
             ax=ax).grid(axis='x')
     plt.show()
 
-# print(update_df[update_df['label'] == 'Acquire'].shape)
-# print(update_df[update_df['label'] == 'Recommend'].shape)
-# print(update_df[update_df['label'] == 'Rate'].shape)
-# print(update_df[update_df['label'] == 'Relinquish'].shape)
-# print(update_df[update_df['label'] == 'Request'].shape)
+    # print(update_df[update_df['label'] == 'Acquire'].shape)
+    # print(update_df[update_df['label'] == 'Recommend'].shape)
+    # print(update_df[update_df['label'] == 'Rate'].shape)
+    # print(update_df[update_df['label'] == 'Relinquish'].shape)
+    # print(update_df[update_df['label'] == 'Request'].shape)
