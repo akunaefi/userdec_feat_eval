@@ -118,11 +118,13 @@ df = pick_dataset('free')
 # compute sentiment
 sid = SentimentIntensityAnalyzer()
 for index, sent in enumerate(df['lemmatized_review']):
+    score = sid.polarity_scores(sent)
+    df.loc[index,'sentiment'] = score['compound']
+
     if (index % 100) == 0:
         print(index)
+        print('sentiment=', score['compound'])
         # break
-    score = sid.polarity_scores(sent)
-    df.loc['sentiment'] = score['compound']
     
     # # coba full augmentasi
     # print('asli: ',sent)
@@ -132,7 +134,15 @@ for index, sent in enumerate(df['lemmatized_review']):
     # augment_sent = w2v_augment(word_idx, sent)
     # print('tambahan: ', augment_sent)
 
+
+df = df.filter(['lemmatized_review','star','sentiment','total_words','acquiring','recommend','request','rating',
+                    'relinquish','others'])
+df.fillna(0,inplace=True)
+    
+# simpan di csv
+df.to_csv('../data/1_freeapp_reviews_features.csv')
+
 # simpan di pickle
-with open('../data/1_freeapp_reviews_features.pkl','wb') as f:
-    pickle.dump(df,f)
+# with open('../data/1_freeapp_reviews_features.pkl','wb') as f:
+#     pickle.dump(df,f)
     

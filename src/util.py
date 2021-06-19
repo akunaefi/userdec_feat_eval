@@ -188,32 +188,34 @@ def text_preprocess(df):
     
     # print('lemmatizing...(expand contraction, remove elongated words)')
     lemmatizer = WordNetLemmatizer()
-
-    df['cleaned_review'] = df.apply(
-        lambda row: text_cleaner(row['review']), axis=1)
-    print('cleaning text...done.')
-    df['lemmatized_review'] = df.apply(
-        lambda row: lemmatize_sentence(row['cleaned_review']), axis=1)
-    print('lemmatize text...done.')
-    df['total_words'] = df.apply(
-        lambda row: len(word_tokenize(row['cleaned_review'])), axis=1)
-    print('counting statistics...done.')
+    
+    # df['cleaned_review'] = df.apply(
+    #     lambda row: text_cleaner(row['review']), axis=1)
+    # print('cleaning text...done.')
+    # df['lemmatized_review'] = df.apply(
+    #     lambda row: lemmatize_sentence(row['cleaned_review']), axis=1)
+    # print('lemmatize text...done.')
+    # df['total_words'] = df.apply(
+    #     lambda row: len(word_tokenize(row['cleaned_review'])), axis=1)
+    # print('counting statistics...done.')
 
 
     # stopword = list(set(stopwords.words('english')).difference(config.REMOVE_FROM_STOPWORDS))
     # stopword.extend(config.STOPWORDS_EXTEND)
     # stopwords = set(w.rstrip() for w in open('stopwords.txt'))
     
-    # for index, entry in enumerate(df['review']):
-    #     # puncts = punctuation_extractor(entry)
-    #     cleaned_sent = text_cleaner(entry)
-    #     lemmatized_sent = lemmatize_sentence(cleaned_sent)
-    #     # print(lemmatized_sent)
-    #     total_words = len(word_tokenize(cleaned_sent))
-    #     df.loc[index,'cleaned_review'] = cleaned_sent
-    #     df.loc[index,'lemmatized_review'] = lemmatized_sent
-    #     df.loc[index,'total_words'] = total_words # for structural feature
-    #     # df.loc[index,'punctuation'] = puncts
+    for index, entry in enumerate(df['review']):
+        if (index % 100) == 0: 
+            print(index)
+        # puncts = punctuation_extractor(entry)
+        cleaned_sent = text_cleaner(entry)
+        lemmatized_sent = lemmatize_sentence(cleaned_sent)
+        # print(lemmatized_sent)
+        total_words = len(word_tokenize(cleaned_sent))
+        df.loc[index,'cleaned_review'] = cleaned_sent
+        df.loc[index,'lemmatized_review'] = lemmatized_sent
+        df.loc[index,'total_words'] = total_words # for structural feature
+        # df.loc[index,'punctuation'] = puncts
 
     #karena data yang di lemma banyak, maka perlu di pickle
     # df.to_pickle('../data/f_droid_reviews_lemmatized.pkl')
